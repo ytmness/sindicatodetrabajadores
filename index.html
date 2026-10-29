@@ -12,16 +12,49 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Source+Sans+3:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=voces">
-  <script>document.documentElement.classList.add("js");</script>
+  <link rel="stylesheet" href="styles.css?v=boot-poster">
+  <link rel="preload" href="assets/logo-3d-poster.png" as="image">
+  <link rel="preload" href="models/sindicato-logo-opt.glb" as="fetch" type="model/gltf-binary" crossorigin>
+  <link rel="modulepreload" href="vendor/three/three.module.min.js">
+  <link rel="modulepreload" href="vendor/three/addons/loaders/GLTFLoader.js">
+  <link rel="modulepreload" href="vendor/three/addons/libs/meshopt_decoder.module.js">
+  <link rel="modulepreload" href="vendor/three/addons/utils/BufferGeometryUtils.js">
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "./vendor/three/three.module.min.js",
+      "three/addons/": "./vendor/three/addons/"
+    }
+  }
+  </script>
+  <script>
+    document.documentElement.classList.add("js", "is-booting");
+    window.__STS_GLB = fetch("models/sindicato-logo-opt.glb").then(function (response) {
+      if (!response.ok) throw new Error("No se pudo leer el emblema");
+      return response.arrayBuffer();
+    });
+  </script>
   <script src="script.js" defer></script>
+  <script type="module" src="loader.js?v=poster"></script>
 </head>
 <body>
+  <div id="boot-overlay" class="boot-overlay" role="status" aria-live="polite" aria-busy="true" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-label="Cargando el sitio">
+    <div class="boot-stage">
+      <div class="logo-3d-wrap">
+        <img class="logo-3d-poster" src="assets/logo-3d-poster.png" alt="" width="240" height="240" decoding="sync" fetchpriority="high">
+        <canvas id="logo-3d" class="logo-3d" width="240" height="240"></canvas>
+      </div>
+      <p class="boot-title">Sindicato de Trabajadores de Servicios</p>
+      <p class="boot-tag">Primero la gente</p>
+      <div class="boot-progress" aria-hidden="true"><span class="boot-progress-bar"></span></div>
+      <div class="boot-dots" aria-hidden="true"><span></span><span></span><span></span></div>
+    </div>
+  </div>
   <a class="skip-link" href="#contenido">Saltar al contenido</a>
   <header class="site-header">
     <div class="header-inner">
       <a class="brand" href="#inicio" aria-label="Sindicato de Trabajadores de Servicios, inicio">
-        <img src="assets/logo-horizontal.png" alt="Primero la gente — Sindicato de Trabajadores de Servicios">
+        <img src="assets/logo-horizontal-opt.png" alt="Primero la gente — Sindicato de Trabajadores de Servicios">
       </a>
       <button class="menu-toggle" type="button" aria-label="Abrir menú" aria-expanded="false" aria-controls="site-nav">
         <span></span><span></span>
@@ -53,8 +86,8 @@
           <div class="art-orbit orbit-one"><span class="art-dot"></span></div>
           <div class="art-orbit orbit-two"><span class="art-dot dot-blue"></span></div>
           <figure class="hero-photo">
-            <video class="hero-video" autoplay muted loop playsinline preload="auto" poster="assets/hero-plant.jpg" aria-label="Manos ensamblando cables en una línea de producción; video ilustrativo">
-              <source src="assets/hero-work.mp4" type="video/mp4">
+            <video class="hero-video" autoplay muted loop playsinline preload="auto" poster="assets/hero-plant.webp" aria-label="Manos ensamblando cables en una línea de producción; video ilustrativo">
+              <source src="assets/hero-work-lite.mp4" type="video/mp4">
             </video>
             <figcaption><span>TRABAJO EN PLANTA</span></figcaption>
           </figure>
@@ -77,7 +110,7 @@
         <h2 id="intro-title">Una voz colectiva<br>se construye <em>en equipo.</em></h2>
         <figure class="intro-photo">
           <div class="intro-image">
-            <img src="assets/work-team.jpg" alt="Persona con casco trabajando en un ensamble industrial; fotografía ilustrativa" loading="lazy">
+            <img src="assets/work-team.webp" alt="Persona con casco trabajando en un ensamble industrial; fotografía ilustrativa" loading="lazy">
             <span class="intro-photo-mark">EN EQUIPO</span>
           </div>
           <figcaption><span>TRABAJO COLECTIVO</span></figcaption>
@@ -230,15 +263,15 @@
         </div>
         <div class="gallery-grid">
           <figure class="gallery-card reveal">
-            <div class="gallery-image"><img src="assets/work-line.jpg" alt="Persona ensamblando un componente electrónico; fotografía ilustrativa" loading="lazy"><span class="gallery-number">01</span></div>
+            <div class="gallery-image"><img src="assets/work-line.webp" alt="Persona ensamblando un componente electrónico; fotografía ilustrativa" loading="lazy"><span class="gallery-number">01</span></div>
             <figcaption><span class="gallery-kicker">ENSAMBLE</span></figcaption>
           </figure>
           <figure class="gallery-card reveal">
-            <div class="gallery-image"><img src="assets/work-plant.jpg" alt="Persona con casco coordinando carga en un piso industrial; fotografía ilustrativa" loading="lazy"><span class="gallery-number">02</span></div>
+            <div class="gallery-image"><img src="assets/work-plant.webp" alt="Persona con casco coordinando carga en un piso industrial; fotografía ilustrativa" loading="lazy"><span class="gallery-number">02</span></div>
             <figcaption><span class="gallery-kicker">PLANTA</span></figcaption>
           </figure>
           <figure class="gallery-card reveal">
-            <div class="gallery-image"><img src="assets/work-warehouse.jpg" alt="Personas trabajando en un almacén industrial; fotografía ilustrativa" loading="lazy"><span class="gallery-number">03</span></div>
+            <div class="gallery-image"><img src="assets/work-warehouse.webp" alt="Personas trabajando en un almacén industrial; fotografía ilustrativa" loading="lazy"><span class="gallery-number">03</span></div>
             <figcaption><span class="gallery-kicker">ALMACÉN</span></figcaption>
           </figure>
         </div>
@@ -296,7 +329,7 @@
             </div>
           </div>
           <figure class="voice-photo reveal">
-            <img src="assets/work-team.jpg" alt="Persona con casco trabajando en un ensamble industrial; fotografía ilustrativa" loading="lazy">
+            <img src="assets/work-team.webp" alt="Persona con casco trabajando en un ensamble industrial; fotografía ilustrativa" loading="lazy">
           </figure>
         </div>
       </div>
